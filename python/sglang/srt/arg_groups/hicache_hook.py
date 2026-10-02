@@ -6,6 +6,7 @@ from __future__ import annotations
 import logging
 from typing import Any
 
+from sglang.srt.arg_groups.model_override_base import model_config_of
 from sglang.srt.arg_groups.overrides import (
     declare_resolution,
     resolving_view,
@@ -131,7 +132,7 @@ def resolve_hicache_dcp_compatibility(server_args: Any):
         )
     if spec_algo in ("EAGLE", "NEXTN") and (
         cfg.speculative_draft_model_path is not None
-        or not getattr(cfg.get_model_config().hf_config, "num_nextn_predict_layers", 0)
+        or not getattr(model_config_of(cfg).hf_config, "num_nextn_predict_layers", 0)
     ):
         # Only the packed NextN/MTP draft is DCP-safe: its single MLA layer
         # is owner-striped by the shared write kernel and rides in the
