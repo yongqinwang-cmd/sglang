@@ -1896,7 +1896,7 @@ def _dsa_dcp_validation(view: Any) -> dict:
         return {}
     from sglang.srt.configs.model_config import get_dsa_index_kpool, is_deepseek_dsa
 
-    hf_config = view.get_model_config().hf_config
+    hf_config = model_config_of(view).hf_config
     if not is_deepseek_dsa(hf_config):
         return {}
     platform = get_platform()
